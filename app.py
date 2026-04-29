@@ -543,7 +543,6 @@ st.markdown(f"""
 TABS = [
     ("forecast", "📈  Forecast"),
     ("history",  "📉  Price History"),
-    ("plots",    "🔬  Analysis Plots"),
     ("metrics",  "📊  Metrics"),
     ("arch",     "⚙   Architecture"),
 ]
@@ -1024,43 +1023,6 @@ elif TAB == "history":
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  TAB 3 — ANALYSIS PLOTS
-# ══════════════════════════════════════════════════════════════════════════════
-elif TAB == "plots":
-    st.markdown("<div style='padding:1.25rem 1.5rem 0;'>", unsafe_allow_html=True)
-    st.markdown(f"<div class='sec-title amber'>Training Run — All Analysis Plots</div>",
-                unsafe_allow_html=True)
-
-    ALL_PLOTS = [
-        ("01_eda_overview.png",            "EDA Overview — Price · Volume · Distributions · Correlation"),
-        ("04_fold_training_curves.png",    "Walk-Forward Training Curves — Loss & MAE (4 Folds)"),
-        ("06_test_actual_vs_predicted.png","Actual vs Predicted — Unseen Test Set (2021–2026)"),
-        ("09_val_vs_test.png",             "Validation vs Test Comparison"),
-        ("07_residuals.png",               "Residuals — Test Set"),
-        ("08_scatter.png",                 "Actual vs Predicted Scatter (₹)"),
-        ("10_attention_weights.png",       "Bahdanau Attention Weights — Top-5 Attended Days (Red)"),
-        ("11_metrics_summary.png",         "Model Performance Summary — MAPE & Directional Accuracy"),
-        ("12_future_forecast_30d.png",     "30-Day Price Forecast"),
-    ]
-
-    i = 0
-    while i < len(ALL_PLOTS):
-        fn, cap = ALL_PLOTS[i]
-        path = os.path.join(PLOT_DIR, fn)
-        if i == 5:  # scatter + attention side by side
-            c1, c2 = st.columns(2, gap="small")
-            with c1: plot_img(path, cap)
-            if i+1 < len(ALL_PLOTS):
-                fn2, cap2 = ALL_PLOTS[i+1]
-                with c2: plot_img(os.path.join(PLOT_DIR, fn2), cap2)
-            i += 2
-        else:
-            plot_img(path, cap)
-            i += 1
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
